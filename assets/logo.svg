@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- شعار SVG مرسوم بروح اللوغو الأصلي: دائري كرومي — حنفية + قطرة + شعلة -->
+  <defs>
+    <linearGradient id="chrome" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EDEFF2"/>
+      <stop offset=".45" stop-color="#C9CDD3"/>
+      <stop offset=".7" stop-color="#9BA1A8"/>
+      <stop offset="1" stop-color="#E8EAEE"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4A90D9"/>
+      <stop offset="1" stop-color="#1B4965"/>
+    </linearGradient>
+    <path id="arcBottom" d="M 30 100 A 70 70 0 0 0 170 100" fill="none"/>
+  </defs>
+
+  <!-- الخلفية -->
+  <circle cx="100" cy="100" r="98" fill="#0D141F"/>
+  <circle cx="100" cy="100" r="92" fill="none" stroke="url(#chrome)" stroke-width="4"/>
+  <circle cx="100" cy="100" r="84" fill="none" stroke="url(#chrome)" stroke-width="1" opacity=".5"/>
+
+  <!-- LOGO -->
+  <text x="100" y="58" text-anchor="middle" font-family="Sora, Arial, sans-serif" font-size="26" font-weight="800" letter-spacing="3" fill="url(#chrome)">LOGO</text>
+
+  <!-- قطرة ماء -->
+  <path d="M52 92 c0 -7 8 -16 8 -16 s8 9 8 16 a8 8 0 0 1 -16 0 Z" fill="url(#steel)"/>
+
+  <!-- شعلة غاز -->
+  <path d="M140 76 c4 6 8 10 8 16 a8 8 0 0 1 -16 0 c0 -4 2 -6 4 -9 c1.5 -2.4 3 -4.5 4 -7 Z" fill="url(#chrome)"/>
+
+  <!-- حنفية -->
+  <g fill="none" stroke="url(#chrome)" stroke-width="6" stroke-linecap="round">
+    <path d="M84 96 h30"/>
+    <path d="M114 96 c12 0 14 8 14 16"/>
+    <path d="M99 96 v-10 M92 84 h14"/>
+  </g>
+  <rect x="122" y="112" width="12" height="8" rx="2" fill="url(#chrome)"/>
+  <path d="M128 126 c0 -3 3.5 -7 3.5 -7 s3.5 4 3.5 7 a3.5 3.5 0 0 1 -7 0 Z" fill="url(#steel)"/>
+
+  <!-- مفتاح ربط متقاطع مع أنبوب -->
+  <g stroke="url(#chrome)" stroke-width="5" stroke-linecap="round">
+    <path d="M70 148 L112 118" fill="none"/>
+    <path d="M88 118 L130 148" fill="none"/>
+  </g>
+  <circle cx="70" cy="148" r="8" fill="none" stroke="url(#chrome)" stroke-width="5"/>
+  <rect x="126" y="142" width="12" height="12" rx="2" fill="url(#chrome)" transform="rotate(35 132 148)"/>
+
+  <!-- النص السفلي على قوس -->
+  <text font-family="Sora, Arial, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.6" fill="url(#chrome)">
+    <textPath href="#arcBottom" startOffset="50%" text-anchor="middle">SU VE DOĞAL GAZ TESİSATI</textPath>
+  </text>
+</svg>

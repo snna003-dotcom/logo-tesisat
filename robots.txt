@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /tests/
+
+Sitemap: https://snna003-dotcom.github.io/logo-tesisat/sitemap.xml

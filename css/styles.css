@@ -1,0 +1,445 @@
+/* ============================================================
+   logo — su ve doğal gaz tesisatı
+   ثيم "Obsidian & Flow" — من تصميم Google Stitch
+   أسود فحمي #121212 + ذهبي برونزي #C5A059
+   خطوط: Playfair Display / Montserrat (TR) — Amiri / Tajawal (AR)
+   أداء: transform/opacity فقط، بدون blur ثقيل
+============================================================ */
+
+/* ----- متغيرات الهوية (Stitch design tokens) ----- */
+:root {
+  --obsidian-950: #0A0A0A;
+  --obsidian-900: #121212;   /* Secondary */
+  --obsidian-800: #171717;
+  --obsidian-700: #2A2A2A;   /* Tertiary */
+  --mist: #EDEAE3;           /* أبيض دافئ */
+  --neutral: #8E8E8E;        /* Neutral */
+  --gold: #C5A059;           /* Primary */
+  --gold-light: #D9BC7F;
+  --gold-dark: #A07E3B;
+  --wa: #25D366;
+  --wa-dark: #128C4A;
+
+  --grad-gold: linear-gradient(135deg, var(--gold-light), var(--gold) 45%, var(--gold-dark));
+  --card-bg: rgba(255, 255, 255, 0.035);
+  --card-border: rgba(197, 160, 89, 0.16);
+  --shadow-soft: 0 12px 40px -14px rgba(0, 0, 0, 0.6);
+  --shadow-lift: 0 26px 60px -18px rgba(0, 0, 0, 0.75);
+}
+
+/* ----- الخطوط حسب اللغة ----- */
+html[lang="tr"] {
+  --font-heading: 'Playfair Display', 'Georgia', serif;
+  --font-body: 'Montserrat', sans-serif;
+}
+html[lang="ar"] {
+  --font-heading: 'Amiri', 'Georgia', serif;
+  --font-body: 'Tajawal', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+/* قصّ أي تجاوز أفقي (عناصر reveal الاتجاهية تقف مزاحة قبل ظهورها) */
+html, body { overflow-x: clip; }
+@supports not (overflow-x: clip) { html, body { overflow-x: hidden; } }
+body { font-family: var(--font-body); background: var(--obsidian-900); }
+
+[dir="rtl"] .rtl-flip { display: inline-block; transform: scaleX(-1); }
+
+/* ============ عناصر عامة ============ */
+
+.section { padding: 6.5rem 0 8rem; position: relative; }
+
+.section-head { text-align: center; max-width: 44rem; margin: 0 auto 3.5rem; }
+/* kicker بأسلوب Stitch: ذهبي متباعد الأحرف بدون خلفية */
+.section-kicker {
+  display: inline-block;
+  font-size: .72rem; font-weight: 600; letter-spacing: .32em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.1rem;
+}
+[dir="rtl"] .section-kicker { letter-spacing: .12em; }
+.section-title {
+  font-size: clamp(1.9rem, 3.8vw, 2.9rem); font-weight: 700;
+  color: #fff; line-height: 1.25; margin-bottom: 1rem;
+}
+.section-sub { color: var(--neutral); font-size: 1.02rem; font-weight: 300; }
+
+.text-gradient-gold {
+  background: var(--grad-gold);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+
+/* ============ بطاقات ============ */
+.glass-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: .5rem;            /* زوايا هادئة كأسلوب Stitch */
+  box-shadow: var(--shadow-soft);
+}
+
+/* ============ أزرار (Stitch: مستطيلة بزوايا خفيفة) ============ */
+.btn-wa, .btn-chrome {
+  border-radius: .375rem; padding: .75rem 1.6rem; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase; font-size: .82rem;
+  transition: transform .3s ease, box-shadow .3s ease, filter .3s ease;
+  position: relative; overflow: hidden; isolation: isolate;
+}
+.btn-lg { padding: 1rem 2.2rem; font-size: .88rem; }
+
+/* لمعة تعبر الزر عند hover */
+.btn-wa::after, .btn-chrome::after {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform .7s ease;
+}
+.btn-wa:hover::after, .btn-chrome:hover::after { transform: translateX(120%); }
+[dir="rtl"] .btn-wa::after, [dir="rtl"] .btn-chrome::after { transform: translateX(120%); }
+[dir="rtl"] .btn-wa:hover::after, [dir="rtl"] .btn-chrome:hover::after { transform: translateX(-120%); }
+
+/* الزر الأساسي: ذهبي (Primary من Stitch) — نص داكن */
+.btn-wa {
+  background: var(--grad-gold);
+  color: var(--obsidian-900);
+  box-shadow: 0 10px 28px -10px rgba(197, 160, 89, 0.5);
+}
+.btn-wa:hover { transform: translateY(-2px); box-shadow: 0 16px 36px -10px rgba(197, 160, 89, 0.6); }
+
+/* الزر الثانوي: Outlined ذهبي (كما في Stitch) */
+.btn-chrome {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid rgba(197, 160, 89, 0.55);
+}
+.btn-chrome:hover { transform: translateY(-2px); background: rgba(197,160,89,.08); }
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: .375rem;
+}
+
+/* ============ NAVBAR ============ */
+.nav-glass {
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.12);
+  transition: box-shadow .4s ease;
+}
+.nav-inner { height: 5rem; transition: height .4s ease; }
+#navbar.shrink .nav-inner { height: 3.75rem; }
+#navbar.shrink { box-shadow: 0 10px 30px -12px rgba(0,0,0,.7); }
+.nav-logo { transition: width .4s ease, height .4s ease; border: 1px solid rgba(197,160,89,.35); }
+#navbar.shrink .nav-logo { width: 2.25rem; height: 2.25rem; }
+
+/* اسم العلامة بخط serif ذهبي كتصميم Stitch */
+.nav-glass .font-heading.text-white { color: var(--gold) !important; font-size: 1.35rem; letter-spacing: .04em; }
+
+.nav-link {
+  position: relative; color: rgba(237,234,227,.72); padding: .25rem 0;
+  transition: color .3s; letter-spacing: .06em; text-transform: uppercase; font-size: .78rem;
+}
+.nav-link:hover { color: var(--gold-light); }
+.nav-link::after {
+  content: ''; position: absolute; bottom: -4px; inset-inline-start: 0;
+  width: 0; height: 1px; background: var(--grad-gold);
+  transition: width .35s ease;
+}
+.nav-link:hover::after { width: 100%; }
+
+#menuToggle { min-width: 2.75rem; min-height: 2.75rem; display: inline-grid; place-items: center; } /* هدف لمس ≥44px */
+.mobile-link { display: block; padding: .6rem .5rem; border-radius: .375rem; color: rgba(237,234,227,.8); letter-spacing: .05em; }
+.mobile-link:hover { background: rgba(197,160,89,.08); color: var(--gold-light); }
+
+.lang-toggle {
+  display: inline-flex; align-items: center; gap: .45rem;
+  min-height: 2.5rem; /* هدف لمس ≥40px */
+  font-size: .78rem; font-weight: 600;
+  padding: .45rem .95rem; border-radius: .375rem;
+  background: transparent;
+  border: 1px solid rgba(197, 160, 89, 0.45);
+  color: var(--gold);
+  transition: transform .3s ease, background .3s ease;
+}
+.lang-toggle:hover { transform: translateY(-1px); background: rgba(197,160,89,.08); }
+.lang-divider { color: rgba(197,160,89,.4); }
+.lang-opt { opacity: .4; transition: opacity .3s; }
+.lang-opt.active { opacity: 1; }
+
+/* ============ HERO ============ */
+.hero-section { background: var(--obsidian-900); }
+.hero-bg {
+  position: absolute; inset: -12% 0; z-index: 0;
+  background: linear-gradient(135deg, var(--obsidian-700), var(--obsidian-900) 60%);
+  background-size: cover; background-position: center;
+  will-change: transform;
+}
+/* تعتيم دافئ فوق الصورة يذوب للأسود من الأسفل — كتصميم Stitch */
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(to bottom, rgba(10,10,10,.55) 0%, rgba(10,10,10,.25) 40%, rgba(18,18,18,.92) 85%, var(--obsidian-900) 100%),
+    linear-gradient(100deg, rgba(10,10,10,.9) 15%, rgba(10,10,10,.55) 55%, rgba(10,10,10,.25) 100%);
+}
+[dir="rtl"] .hero-overlay {
+  background:
+    linear-gradient(to bottom, rgba(10,10,10,.55) 0%, rgba(10,10,10,.25) 40%, rgba(18,18,18,.92) 85%, var(--obsidian-900) 100%),
+    linear-gradient(-100deg, rgba(10,10,10,.9) 15%, rgba(10,10,10,.55) 55%, rgba(10,10,10,.25) 100%);
+}
+/* توهج ذهبي ناعم يتنفس */
+.hero-glow {
+  position: absolute; z-index: 1; pointer-events: none;
+  width: 46rem; height: 46rem; border-radius: 999px;
+  inset-inline-end: -14rem; top: -10rem;
+  background: radial-gradient(circle, rgba(197,160,89,.13) 0%, transparent 60%);
+  animation: glowDrift 14s ease-in-out infinite alternate;
+}
+@keyframes glowDrift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(-4rem, 5rem, 0) scale(1.15); }
+}
+
+.hero-badge {
+  font-size: .72rem; font-weight: 600; color: var(--gold);
+  letter-spacing: .28em; text-transform: uppercase;
+  background: rgba(10,10,10,.5);
+  border: 1px solid rgba(197,160,89,.35);
+  padding: .45rem 1.1rem; border-radius: .375rem;
+}
+[dir="rtl"] .hero-badge { letter-spacing: .1em; }
+
+/* عنوان الـ Hero بخط serif كبير + ظل خفيف للقراءة فوق الصورة */
+#home h1 { font-weight: 700; letter-spacing: .01em; text-shadow: 0 2px 24px rgba(0,0,0,.75); }
+#home p  { text-shadow: 0 1px 14px rgba(0,0,0,.7); }
+
+.stats-bar { padding: 1.75rem 2rem; position: relative; z-index: 2; }
+.stat-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .3rem; padding: 0 1rem; }
+.stat-value { font-size: 2rem; font-weight: 700; color: var(--gold); }
+.stat-value--text { font-size: 1.12rem; line-height: 1.4; padding-top: .4rem; }
+.stat-label {
+  font-size: .68rem; color: var(--neutral); font-weight: 500;
+  letter-spacing: .2em; text-transform: uppercase;
+}
+[dir="rtl"] .stat-label { letter-spacing: .06em; }
+
+/* ============ فواصل الموجات ============ */
+.wave-divider { position: absolute; bottom: -1px; inset-inline: 0; line-height: 0; pointer-events: none; z-index: 2; }
+.wave-divider svg { width: 100%; height: clamp(40px, 7vw, 90px); display: block; }
+.wave-divider.wave-top { top: -1px; bottom: auto; }
+
+/* ============ بطاقات المنتجات ============ */
+.product-card {
+  padding: 2rem 1.7rem;
+  display: flex; flex-direction: column; gap: .85rem;
+  position: relative; overflow: hidden;
+  transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+}
+.product-card::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(115deg, transparent 35%, rgba(217,188,127,.10) 50%, transparent 65%);
+  transform: translateX(-130%); transition: transform .8s ease;
+}
+.product-card:hover::before { transform: translateX(130%); }
+.product-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(197,160,89,.55);
+  box-shadow: var(--shadow-lift), 0 0 30px -8px rgba(197,160,89,.3);
+}
+
+.product-icon {
+  width: 3.4rem; height: 3.4rem; padding: .65rem;
+  border-radius: .375rem; color: var(--gold);
+  background: rgba(197,160,89,.07);
+  border: 1px solid rgba(197,160,89,.25);
+  transition: transform .4s ease, color .4s ease;
+}
+.product-card:hover .product-icon { transform: scale(1.08) rotate(-3deg); color: var(--gold-light); }
+.product-icon svg { width: 100%; height: 100%; }
+
+.product-title { font-weight: 700; font-size: 1.15rem; color: #fff; }
+.product-desc { font-size: .86rem; color: var(--neutral); line-height: 1.65; flex: 1; font-weight: 300; }
+.product-link {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: .74rem; font-weight: 600; color: var(--gold);
+  letter-spacing: .14em; text-transform: uppercase;
+  transition: color .3s, gap .3s;
+  /* توسيع منطقة اللمس لمعيار WCAG (≥44px) دون تغيير الشكل المرئي */
+  padding-block: .8rem; margin-block: -.55rem;
+}
+[dir="rtl"] .product-link { letter-spacing: .04em; }
+.product-link:hover { color: var(--gold-light); gap: .65rem; }
+
+/* ============ المعرض ============ */
+.gallery-grid { columns: 1; column-gap: 1.25rem; }
+@media (min-width: 640px)  { .gallery-grid { columns: 2; } }
+@media (min-width: 1024px) { .gallery-grid { columns: 3; } }
+
+.gallery-item {
+  position: relative; overflow: hidden; border-radius: .5rem;
+  margin-bottom: 1.25rem; break-inside: avoid; cursor: zoom-in;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-soft);
+  display: block; width: 100%; padding: 0; background: none; text-align: inherit;
+}
+.gallery-item img {
+  width: 100%; display: block;
+  transition: transform .6s ease;
+  will-change: transform;
+}
+.gallery-item:hover img, .gallery-item:focus-visible img { transform: scale(1.07); }
+/* طبقة ذهبية دافئة عند hover */
+.gallery-item::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(160deg, rgba(18,18,18,.6), rgba(197,160,89,.32));
+  opacity: 0; transition: opacity .4s ease;
+}
+.gallery-item .zoom-ic {
+  position: absolute; top: 50%; left: 50%; z-index: 1;
+  transform: translate(-50%, -50%) scale(.6);
+  width: 3rem; height: 3rem; border-radius: 999px;
+  display: grid; place-items: center;
+  background: rgba(10,10,10,.85); color: var(--gold-light);
+  border: 1px solid rgba(197,160,89,.4);
+  opacity: 0; transition: opacity .4s ease, transform .4s ease;
+  pointer-events: none;
+}
+.gallery-item:hover::after, .gallery-item:focus-visible::after { opacity: 1; }
+.gallery-item:hover .zoom-ic, .gallery-item:focus-visible .zoom-ic { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+/* ============ Lightbox ============ */
+.lightbox {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(5, 5, 5, 0.95);
+  display: flex; align-items: center; justify-content: center;
+  animation: lbFade .25s ease;
+}
+@keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
+.lightbox img {
+  max-width: min(92vw, 1100px); max-height: 86vh;
+  border-radius: .5rem;
+  border: 1px solid rgba(197,160,89,.25);
+  box-shadow: 0 30px 80px rgba(0,0,0,.7);
+}
+.lb-btn {
+  position: absolute; z-index: 101;
+  width: 3rem; height: 3rem; border-radius: 999px;
+  display: grid; place-items: center;
+  background: rgba(255,255,255,.08); color: var(--gold-light);
+  font-size: 1.4rem; line-height: 1;
+  transition: background .3s;
+}
+.lb-btn:hover { background: rgba(197,160,89,.25); }
+.lb-close { top: 1.25rem; inset-inline-end: 1.25rem; font-size: 2rem; }
+.lb-prev { inset-inline-start: 1rem; top: 50%; transform: translateY(-50%); }
+.lb-next { inset-inline-end: 1rem; top: 50%; transform: translateY(-50%); }
+
+/* ============ من نحن ============ */
+.about-img-wrap { position: relative; }
+.about-img {
+  width: 100%; aspect-ratio: 4/3; object-fit: cover;
+  border-radius: .5rem;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-lift);
+  position: relative; z-index: 1;
+  filter: saturate(.92) contrast(1.03);
+}
+/* إطار ذهبي مزاح خلف الصورة */
+.about-img-frame {
+  position: absolute; inset: 0;
+  transform: translate(1.1rem, 1.1rem);
+  border-radius: .5rem;
+  border: 1px solid rgba(197,160,89,.5);
+  background: transparent;
+  z-index: 0;
+}
+[dir="rtl"] .about-img-frame { transform: translate(-1.1rem, 1.1rem); }
+
+.trust-item { display: flex; gap: 1rem; align-items: flex-start; padding: 1.15rem 1.35rem; }
+.trust-icon {
+  flex-shrink: 0; width: 2.6rem; height: 2.6rem; padding: .55rem;
+  border-radius: .375rem; color: var(--gold);
+  background: rgba(197,160,89,.07);
+  border: 1px solid rgba(197,160,89,.25);
+}
+.trust-icon svg { width: 100%; height: 100%; }
+.trust-item h3 { font-size: 1.05rem; }
+.trust-item p { color: var(--neutral); font-weight: 300; }
+
+/* ============ تواصل ============ */
+.contact-row { display: flex; gap: 1rem; align-items: flex-start; }
+.contact-icon {
+  flex-shrink: 0; width: 2.6rem; height: 2.6rem; padding: .55rem;
+  border-radius: .375rem; color: var(--gold);
+  background: rgba(197,160,89,.07);
+  border: 1px solid rgba(197,160,89,.25);
+}
+.contact-icon svg { width: 100%; height: 100%; }
+.map-wrap { min-height: 420px; }
+.map-wrap iframe { filter: grayscale(.25) contrast(1.03); }
+
+/* زر واتساب الكبير في قسم التواصل يبقى أخضر للتمييز الفوري */
+#contact .btn-wa.btn-lg {
+  background: linear-gradient(135deg, var(--wa), var(--wa-dark));
+  color: #fff;
+  box-shadow: 0 10px 28px -10px rgba(37, 211, 102, 0.45);
+  text-transform: none; letter-spacing: .02em; font-size: 1.05rem;
+}
+
+/* ============ FOOTER ============ */
+.footer { background: linear-gradient(180deg, var(--obsidian-950), #050505); }
+.footer-title {
+  font-family: var(--font-heading); font-weight: 700; color: var(--gold);
+  margin-bottom: 1rem; font-size: 1.05rem; letter-spacing: .05em;
+}
+.footer-link { color: rgba(237,234,227,.5); transition: color .3s, padding-inline-start .3s; }
+.footer-link:hover { color: var(--gold-light); padding-inline-start: .3rem; }
+.footer .brand-logo-img, .footer img[src*="logo"] { border: 1px solid rgba(197,160,89,.35); }
+
+/* ============ زر واتساب العائم ============ */
+.wa-float {
+  position: fixed; z-index: 60;
+  bottom: 1.5rem; inset-inline-end: 1.5rem;
+  width: 3.6rem; height: 3.6rem; border-radius: 999px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--wa), var(--wa-dark));
+  color: #fff;
+  box-shadow: 0 12px 32px -6px rgba(18,140,74,.5);
+  transition: transform .3s ease;
+}
+.wa-float:hover { transform: scale(1.1); }
+.wa-float::before {
+  content: ''; position: absolute; inset: 0; border-radius: 999px;
+  border: 2px solid rgba(37,211,102,.55);
+  animation: waRing 2.4s ease-out infinite;
+}
+@keyframes waRing {
+  0%   { transform: scale(1); opacity: 1; }
+  70%, 100% { transform: scale(1.55); opacity: 0; }
+}
+
+/* ============ Placeholder للصور المفقودة ============ */
+.ph {
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--obsidian-700), var(--obsidian-800) 55%, var(--obsidian-700));
+  color: var(--gold);
+  border: 1px solid var(--card-border);
+  position: relative; overflow: hidden;
+}
+.ph svg { width: 30%; max-width: 72px; opacity: .4; }
+.ph-logo { border-radius: 999px; }
+.ph-gallery { aspect-ratio: 4/3; border-radius: .5rem; }
+.ph-about { aspect-ratio: 4/3; border-radius: .5rem; box-shadow: var(--shadow-lift); position: relative; z-index: 1; }
+
+/* ============ احترام تقليل الحركة ============ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  .wa-float::before { animation: none; }
+  .hero-glow { animation: none; }
+}
